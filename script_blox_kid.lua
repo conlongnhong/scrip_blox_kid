@@ -153,79 +153,113 @@ local function taoBaoVe()
     end
 end
 
+-- Hàm kiểm tra service an toàn
+local function layService(tenService)
+    local success, service = pcall(function()
+        return game:GetService(tenService)
+    end)
+    if success then
+        return service
+    else
+        warn("Service '" .. tenService .. "' không khả dụng: " .. tostring(service))
+        return nil
+    end
+end
+
 -- Khởi tạo các biến toàn cục
 local game = game
 local workspace = workspace
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local HttpService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local UserInputService = game:GetService("UserInputService")
-local Lighting = game:GetService("Lighting")
-local SoundService = game:GetService("SoundService")
-local StarterGui = game:GetService("StarterGui")
-local CoreGui = game:GetService("CoreGui")
-local TextService = game:GetService("TextService")
-local ContextActionService = game:GetService("ContextActionService")
-local PathfindingService = game:GetService("PathfindingService")
-local MarketplaceService = game:GetService("MarketplaceService")
-local GroupService = game:GetService("GroupService")
-local DataStoreService = game:GetService("DataStoreService")
-local MessagingService = game:GetService("MessagingService")
-local NotificationService = game:GetService("NotificationService")
-local Chat = game:GetService("Chat")
-local CollectionService = game:GetService("CollectionService")
-local ContentProvider = game:GetService("ContentProvider")
-local AssetService = game:GetService("AssetService")
-local PolicyService = game:GetService("PolicyService")
-local LocalizationService = game:GetService("LocalizationService")
-local AnalyticsService = game:GetService("AnalyticsService")
-local BadgeService = game:GetService("BadgeService")
-local ChangeHistoryService = game:GetService("ChangeHistoryService")
-local CommandBar = game:GetService("CommandBar")
-local DebuggerService = game:GetService("DebuggerService")
-local DevConsoleMaster = game:GetService("DevConsoleMaster")
-local DevStorage = game:GetService("DevStorage")
-local GeometryService = game:GetService("GeometryService")
-local GuiService = game:GetService("GuiService")
-local HapticService = game:GetService("HapticService")
-local InsertService = game:GetService("InsertService")
-local JointsService = game:GetService("JointsService")
-local LogService = game:GetService("LogService")
-local MemoryStoreService = game:GetService("MemoryStoreService")
-local NetworkClient = game:GetService("NetworkClient")
-local NetworkSettings = game:GetService("NetworkSettings")
-local PhysicsService = game:GetService("PhysicsService")
-local PluginGuiService = game:GetService("PluginGuiService")
-local ProximityPromptService = game:GetService("ProximityPromptService")
-local RenderStepped = game:GetService("RunService").RenderStepped
-local Heartbeat = game:GetService("RunService").Heartbeat
-local Stepped = game:GetService("RunService").Stepped
-local PreRender = game:GetService("RunService").PreRender
-local PostSimulation = game:GetService("RunService").PostSimulation
-local ScriptContext = game:GetService("ScriptContext")
-local Selection = game:GetService("Selection")
-local ServerScriptService = game:GetService("ServerScriptService")
-local ServerStorage = game:GetService("ServerStorage")
-local SocialService = game:GetService("SocialService")
-local Stats = game:GetService("Stats")
-local TestService = game:GetService("TestService")
-local TimerService = game:GetService("TimerService")
-local TouchInputService = game:GetService("TouchInputService")
-local UserGameSettings = game:GetService("UserGameSettings")
-local VersionControlService = game:GetService("VersionControlService")
-local VoiceChatService = game:GetService("VoiceChatService")
-local WebService = game:GetService("WebService")
-local Workspace = game:GetService("Workspace")
+local Players = layService("Players")
+local ReplicatedStorage = layService("ReplicatedStorage")
+local RunService = layService("RunService")
+local TweenService = layService("TweenService")
+local VirtualInputManager = layService("VirtualInputManager")
+local HttpService = layService("HttpService")
+local TeleportService = layService("TeleportService")
+local UserInputService = layService("UserInputService")
+local Lighting = layService("Lighting")
+local SoundService = layService("SoundService")
+local StarterGui = layService("StarterGui")
+local CoreGui = layService("CoreGui")
+local TextService = layService("TextService")
+local ContextActionService = layService("ContextActionService")
+local PathfindingService = layService("PathfindingService")
+local MarketplaceService = layService("MarketplaceService")
+local GroupService = layService("GroupService")
+local DataStoreService = layService("DataStoreService")
+local MessagingService = layService("MessagingService")
+local NotificationService = layService("NotificationService")
+local Chat = layService("Chat")
+local CollectionService = layService("CollectionService")
+local ContentProvider = layService("ContentProvider")
+local AssetService = layService("AssetService")
+local PolicyService = layService("PolicyService")
+local LocalizationService = layService("LocalizationService")
+local AnalyticsService = layService("AnalyticsService")
+local BadgeService = layService("BadgeService")
+-- ChangeHistoryService chỉ có trong Studio
+-- local ChangeHistoryService = game:GetService("ChangeHistoryService")
+-- CommandBar không phải là service hợp lệ trong Roblox
+-- local CommandBar = game:GetService("CommandBar")
+-- Các service này chỉ có trong Studio, không có trong game
+-- local DebuggerService = game:GetService("DebuggerService")
+-- local DevConsoleMaster = game:GetService("DevConsoleMaster")
+-- local DevStorage = game:GetService("DevStorage")
+local GeometryService = layService("GeometryService")
+local GuiService = layService("GuiService")
+local HapticService = layService("HapticService")
+local InsertService = layService("InsertService")
+local JointsService = layService("JointsService")
+local LogService = layService("LogService")
+local MemoryStoreService = layService("MemoryStoreService")
+local NetworkClient = layService("NetworkClient")
+local NetworkSettings = layService("NetworkSettings")
+local PhysicsService = layService("PhysicsService")
+local PluginGuiService = layService("PluginGuiService")
+local ProximityPromptService = layService("ProximityPromptService")
 
--- Lấy player hiện tại
-local player = Players.LocalPlayer
+-- RunService events
+local RenderStepped = RunService and RunService.RenderStepped
+local Heartbeat = RunService and RunService.Heartbeat
+local Stepped = RunService and RunService.Stepped
+local PreRender = RunService and RunService.PreRender
+local PostSimulation = RunService and RunService.PostSimulation
+
+local ScriptContext = layService("ScriptContext")
+local Selection = layService("Selection")
+local ServerScriptService = layService("ServerScriptService")
+local ServerStorage = layService("ServerStorage")
+local SocialService = layService("SocialService")
+local Stats = layService("Stats")
+local TestService = layService("TestService")
+local TimerService = layService("TimerService")
+local TouchInputService = layService("TouchInputService")
+local UserGameSettings = layService("UserGameSettings")
+local VersionControlService = layService("VersionControlService")
+local VoiceChatService = layService("VoiceChatService")
+local WebService = layService("WebService")
+local Workspace = layService("Workspace")
+
+-- Lấy player hiện tại với kiểm tra an toàn
+local player = Players and Players.LocalPlayer
+if not player then
+    error("Không thể lấy LocalPlayer!")
+end
+
 local character = player.Character or player.CharacterAdded:Wait()
+if not character then
+    error("Không thể lấy Character!")
+end
+
 local humanoid = character:WaitForChild("Humanoid")
+if not humanoid then
+    error("Không thể lấy Humanoid!")
+end
+
 local rootPart = character:WaitForChild("HumanoidRootPart")
+if not rootPart then
+    error("Không thể lấy HumanoidRootPart!")
+end
 
 -- Các biến cấu hình
 local cauHinh = {
@@ -339,18 +373,24 @@ local trangThai = {
 local tienIch = {
     -- Hàm tạo thông báo
     taoThongBao = function(tieuDe, noiDung, thoiGian)
-        if cauHinh.thongBaoFarm then
+        if cauHinh.thongBaoFarm and StarterGui then
+            local success, result = pcall(function()
             StarterGui:SetCore("SendNotification", {
                 Title = tieuDe,
                 Text = noiDung,
                 Duration = thoiGian or 5
             })
+            end)
+            if not success then
+                warn("Lỗi tạo thông báo: " .. tostring(result))
+            end
         end
     end,
     
     -- Hàm phát âm thanh
     phatAmThanh = function(idAmThanh, amLuong)
-        if cauHinh.amThanhFarm then
+        if cauHinh.amThanhFarm and workspace then
+            local success, result = pcall(function()
             local amThanh = Instance.new("Sound")
             amThanh.SoundId = idAmThanh
             amThanh.Volume = amLuong or 0.5
@@ -359,12 +399,17 @@ local tienIch = {
             amThanh.Ended:Connect(function()
                 amThanh:Destroy()
             end)
+            end)
+            if not success then
+                warn("Lỗi phát âm thanh: " .. tostring(result))
+            end
         end
     end,
     
     -- Hàm dịch chuyển
     dichChuyen = function(viTri)
-        if cauHinh.tuDongDichChuyen then
+        if cauHinh.tuDongDichChuyen and TweenService and rootPart then
+            local success, result = pcall(function()
             local tween = TweenService:Create(
                 rootPart,
                 TweenInfo.new(cauHinh.tocDoDichChuyen, Enum.EasingStyle.Linear),
@@ -372,7 +417,14 @@ local tienIch = {
             )
             tween:Play()
             return tween
+            end)
+            if not success then
+                warn("Lỗi dịch chuyển: " .. tostring(result))
+                return nil
         end
+            return result
+        end
+        return nil
     end,
     
     -- Hàm tìm kiếm NPC
@@ -457,9 +509,16 @@ local chucNang = {
             }
             
             -- Gọi remote event để tấn công
+            if ReplicatedStorage then
             local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
             if remote then
+                    local success, result = pcall(function()
                 remote:FireServer(unpack(thamSo))
+                    end)
+                    if not success then
+                        warn("Lỗi gọi remote event farm: " .. tostring(result))
+                    end
+                end
             end
         end
         
@@ -500,9 +559,16 @@ local chucNang = {
             }
             
             -- Gọi remote event để tấn công
+            if ReplicatedStorage then
             local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
             if remote then
+                    local success, result = pcall(function()
                 remote:FireServer(unpack(thamSo))
+                    end)
+                    if not success then
+                        warn("Lỗi gọi remote event chiến đấu: " .. tostring(result))
+                    end
+                end
             end
         end
         
@@ -541,9 +607,16 @@ local chucNang = {
             }
             
             -- Gọi remote event để thu thập
+            if ReplicatedStorage then
             local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
             if remote then
+                    local success, result = pcall(function()
                 remote:FireServer(unpack(thamSo))
+                    end)
+                    if not success then
+                        warn("Lỗi gọi remote event thu thập: " .. tostring(result))
+                    end
+                end
             end
         end
         
@@ -608,9 +681,16 @@ local chucNang = {
             }
             
             -- Gọi remote event để lên cấp
+            if ReplicatedStorage then
             local remote = ReplicatedStorage:FindFirstChild("RemoteEvent")
             if remote then
+                    local success, result = pcall(function()
                 remote:FireServer(unpack(thamSo))
+                    end)
+                    if not success then
+                        warn("Lỗi gọi remote event lên cấp: " .. tostring(result))
+                    end
+                end
             end
         end
         
@@ -627,9 +707,24 @@ local chucNang = {
 local giaoDien = {
     -- Tạo GUI chính
     taoGiaoDienChinh = function()
+        if not CoreGui then
+            warn("CoreGui không khả dụng!")
+            return nil
+        end
+        
+        local success, result = pcall(function()
         local manHinhGui = Instance.new("ScreenGui")
         manHinhGui.Name = "ScriptBloxFruit"
         manHinhGui.Parent = CoreGui
+            return manHinhGui
+        end)
+        
+        if not success then
+            warn("Lỗi tạo ScreenGui: " .. tostring(result))
+            return nil
+        end
+        
+        local manHinhGui = result
         
         local khungChinh = Instance.new("Frame")
         khungChinh.Name = "KhungChinh"
@@ -789,55 +884,93 @@ local function khoiTao()
     
     -- Tạo GUI
     if cauHinh.giaoDienFarm then
-        giaoDien.taoGiaoDienChinh()
+        local gui = giaoDien.taoGiaoDienChinh()
+        if not gui then
+            warn("Không thể tạo GUI!")
+        end
     end
     
     -- Khởi tạo các kết nối
     local ketNoi = {}
     
     -- Kết nối cho farm
-    if cauHinh.tuDongFarm then
-        ketNoi.farm = Heartbeat:Connect(function()
+    if cauHinh.tuDongFarm and Heartbeat then
+        local success, result = pcall(function()
+            return Heartbeat:Connect(function()
             if tienIch.coTheFarm() then
                 chucNang.farm()
             end
         end)
+        end)
+        if success then
+            ketNoi.farm = result
+        else
+            warn("Lỗi tạo kết nối farm: " .. tostring(result))
+        end
     end
     
     -- Kết nối cho chiến đấu
-    if cauHinh.tuDongChienDau then
-        ketNoi.chienDau = Heartbeat:Connect(function()
+    if cauHinh.tuDongChienDau and Heartbeat then
+        local success, result = pcall(function()
+            return Heartbeat:Connect(function()
             if tienIch.coTheChienDau() then
                 chucNang.chienDau()
             end
         end)
+        end)
+        if success then
+            ketNoi.chienDau = result
+        else
+            warn("Lỗi tạo kết nối chiến đấu: " .. tostring(result))
+        end
     end
     
     -- Kết nối cho thu thập
-    if cauHinh.tuDongThuThap then
-        ketNoi.thuThap = Heartbeat:Connect(function()
+    if cauHinh.tuDongThuThap and Heartbeat then
+        local success, result = pcall(function()
+            return Heartbeat:Connect(function()
             if tienIch.coTheThuThap() then
                 chucNang.thuThap()
             end
         end)
+        end)
+        if success then
+            ketNoi.thuThap = result
+        else
+            warn("Lỗi tạo kết nối thu thập: " .. tostring(result))
+        end
     end
     
     -- Kết nối cho dịch chuyển
-    if cauHinh.tuDongDichChuyen then
-        ketNoi.dichChuyen = Heartbeat:Connect(function()
+    if cauHinh.tuDongDichChuyen and Heartbeat then
+        local success, result = pcall(function()
+            return Heartbeat:Connect(function()
             if tienIch.coTheDichChuyen() then
                 chucNang.dichChuyen()
             end
         end)
+        end)
+        if success then
+            ketNoi.dichChuyen = result
+        else
+            warn("Lỗi tạo kết nối dịch chuyển: " .. tostring(result))
+        end
     end
     
     -- Kết nối cho lên cấp
-    if cauHinh.tuDongLenCap then
-        ketNoi.lenCap = Heartbeat:Connect(function()
+    if cauHinh.tuDongLenCap and Heartbeat then
+        local success, result = pcall(function()
+            return Heartbeat:Connect(function()
             if tienIch.coTheLenCap() then
                 chucNang.lenCap()
             end
         end)
+        end)
+        if success then
+            ketNoi.lenCap = result
+        else
+            warn("Lỗi tạo kết nối lên cấp: " .. tostring(result))
+        end
     end
     
     -- Lưu kết nối
